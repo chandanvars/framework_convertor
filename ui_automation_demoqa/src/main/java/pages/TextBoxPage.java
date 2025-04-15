@@ -1,57 +1,36 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.microsoft.playwright.Page;
+import playwright.PlaywrightManager;
 
 public class TextBoxPage {
-    private WebDriver driver;
+    private Page page;
 
-    @FindBy(id = "userName")
-    private WebElement fullNameField;
-
-    @FindBy(id = "userEmail")
-    private WebElement emailField;
-
-    @FindBy(id = "currentAddress")
-    private WebElement currentAddressField;
-
-    @FindBy(id = "permanentAddress")
-    private WebElement permanentAddressField;
-
-    @FindBy(id = "submit")
-    private WebElement submitButton;
-
-    @FindBy(id = "output")
-    private WebElement outputSection;
-
-    public TextBoxPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public TextBoxPage() {
+        this.page = PlaywrightManager.getPage();
     }
 
     public void enterFullName(String fullName) {
-        fullNameField.sendKeys(fullName);
+        page.locator("#userName").fill(fullName);
     }
 
     public void enterEmail(String email) {
-        emailField.sendKeys(email);
+        page.locator("#userEmail").fill(email);
     }
 
     public void enterCurrentAddress(String currentAddress) {
-        currentAddressField.sendKeys(currentAddress);
+        page.locator("#currentAddress").fill(currentAddress);
     }
 
     public void enterPermanentAddress(String permanentAddress) {
-        permanentAddressField.sendKeys(permanentAddress);
+        page.locator("#permanentAddress").fill(permanentAddress);
     }
 
     public void clickSubmit() {
-        submitButton.click();
+        page.locator("#submit").click();
     }
 
     public boolean isOutputSectionDisplayed() {
-        return outputSection.isDisplayed();
+        return page.locator("#output").isVisible();
     }
 }

@@ -1,38 +1,34 @@
 package pages;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.microsoft.playwright.Page;
 
 public class AlertsPage {
-    private WebDriver driver;
+    private Page page;
+    private String alertText;
 
-    @FindBy(id = "alertButton")
-    private WebElement alertButton;
-
-    public AlertsPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public AlertsPage(Page page) {
+        this.page = page;
     }
 
     public void clickAlertButton() {
-        alertButton.click();
+        // Setup alert handler to capture alert text
+        page.onDialog(dialog -> {
+            alertText = dialog.message();
+            dialog.accept();
+        });
+        page.locator("#alertButton").click();
     }
 
     public String getAlertText() {
-        Alert alert = driver.switchTo().alert();
-        return alert.getText();
+        return alertText;
     }
 
     public void acceptAlert() {
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+        // Alert is already accepted in the dialog handler
+        // This method is kept for compatibility with the test
     }
 
     public void dismissAlert() {
-        Alert alert = driver.switchTo().alert();
-        alert.dismiss();
+        page.onDialog(dialog -> dialog.dismiss());
     }
 }

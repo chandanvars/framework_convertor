@@ -1,26 +1,28 @@
 package base;
 
-import org.openqa.selenium.WebDriver;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.Page;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import utils.WebDriverFactory;
-import java.util.concurrent.TimeUnit;
+import utils.PlaywrightFactory;
 
 public class BaseTest {
-    protected WebDriver driver;
+    protected Browser browser;
+    protected Page page;
 
     @BeforeMethod
     public void setUp() {
-        driver = WebDriverFactory.createWebDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("https://demoqa.com/");
+        browser = PlaywrightFactory.createBrowser();
+        page = browser.newPage();
+        page.setDefaultTimeout(10000);
+        page.navigate("https://demoqa.com/");
     }
 
     @AfterMethod
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
+        if (page != null) {
+            page.close();
         }
+        PlaywrightFactory.closeBrowser();
     }
 }

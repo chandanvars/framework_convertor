@@ -1,0 +1,12 @@
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/pages/TextBoxPage.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/pages/RadioButtonPage.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/utils/PlaywrightFactory.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/config/ConfigReader.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/pages/CheckBoxPage.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/pages/AlertsPage.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/models/TestDataModel.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/pages/WebTablePage.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/pages/ButtonsPage.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/pages/DynamicPropertiesPage.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/base/BaseTest.java
+/home/runner/work/framework_convertor/framework_convertor/ui_automation_demoqa/src/main/java/pages/HomePage.java

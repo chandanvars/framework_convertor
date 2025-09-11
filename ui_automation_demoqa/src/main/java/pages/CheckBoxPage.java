@@ -1,36 +1,23 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.microsoft.playwright.Page;
 
 public class CheckBoxPage {
-    private WebDriver driver;
+    private Page page;
 
-    @FindBy(css = ".rct-collapse.rct-collapse-btn")
-    private WebElement expandAllButton;
-
-    @FindBy(css = ".rct-icon.rct-icon-uncheck")
-    private WebElement homeCheckBox;
-
-    @FindBy(css = "#result")
-    private WebElement result; 
-
-    public CheckBoxPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public CheckBoxPage(Page page) {
+        this.page = page;
     }
 
     public void expandAll() {
-        expandAllButton.click();
+        page.locator(".rct-collapse.rct-collapse-btn").click();
     }
 
     public void selectHomeCheckBox() {
-        homeCheckBox.click();
+        page.locator(".rct-icon.rct-icon-uncheck").click();
     }
 
     public boolean isResultDisplayed() {
-        return result.isDisplayed();
+        return page.locator("#result").isVisible();
     }
 }

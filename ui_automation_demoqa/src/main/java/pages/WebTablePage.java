@@ -1,78 +1,47 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.microsoft.playwright.Page;
 
 public class WebTablePage {
-    private WebDriver driver;
+    private Page page;
 
-    @FindBy(id = "addNewRecordButton")
-    private WebElement addButton;
-
-    @FindBy(id = "firstName")
-    private WebElement firstNameField;
-
-    @FindBy(id = "lastName")
-    private WebElement lastNameField;
-
-    @FindBy(id = "userEmail")
-    private WebElement emailField;
-
-    @FindBy(id = "age")
-    private WebElement ageField;
-
-    @FindBy(id = "salary")
-    private WebElement salaryField;
-
-    @FindBy(id = "department")
-    private WebElement departmentField;
-
-    @FindBy(id = "submit")
-    private WebElement submitButton;
-
-    @FindBy(css = ".rt-tr-group")
-    private WebElement tableRow;
-
-    public WebTablePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public WebTablePage(Page page) {
+        this.page = page;
     }
 
     public void clickAddButton() {
-        addButton.click();
+        page.locator("#addNewRecordButton").click();
     }
 
     public void enterFirstName(String firstName) {
-        firstNameField.sendKeys(firstName);
+        page.locator("#firstName").fill(firstName);
     }
 
     public void enterLastName(String lastName) {
-        lastNameField.sendKeys(lastName);
+        page.locator("#lastName").fill(lastName);
     }
 
     public void enterEmail(String email) {
-        emailField.sendKeys(email);
+        page.locator("#userEmail").fill(email);
     }
 
     public void enterAge(String age) {
-        ageField.sendKeys(age);
+        page.locator("#age").fill(age);
     }
 
     public void enterSalary(String salary) {
-        salaryField.sendKeys(salary);
+        page.locator("#salary").fill(salary);
     }
 
     public void enterDepartment(String department) {
-        departmentField.sendKeys(department);
+        page.locator("#department").fill(department);
     }
 
     public void clickSubmitButton() {
-        submitButton.click();
+        page.locator("#submit").click();
     }
 
     public boolean isTableRowDisplayed() {
-        return tableRow.isDisplayed();
+        return page.locator(".rt-tr-group").isVisible();
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="DemoQA Tests">
+    <test name="DemoQA UI Tests">
+        <classes>
+            <class name="tests.DemoQATests"/>
+        </classes>
+    </test>
+</suite>

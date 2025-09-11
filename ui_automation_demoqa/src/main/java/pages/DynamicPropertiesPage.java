@@ -1,29 +1,19 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.microsoft.playwright.Page;
 
 public class DynamicPropertiesPage {
-    private WebDriver driver;
+    private Page page;
 
-    @FindBy(id = "enableAfter")
-    private WebElement enableAfterButton;
-
-    @FindBy(id = "colorChange")
-    private WebElement colorChangeButton;
-
-    public DynamicPropertiesPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public DynamicPropertiesPage(Page page) {
+        this.page = page;
     }
 
     public boolean isEnableAfterButtonClickable() {
-        return enableAfterButton.isEnabled();
+        return page.locator("#enableAfter").isEnabled();
     }
 
     public String getColorChangeButtonColor() {
-        return colorChangeButton.getCssValue("color");
+        return page.locator("#colorChange").evaluate("element => getComputedStyle(element).color").toString();
     }
 }

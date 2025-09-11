@@ -1,68 +1,115 @@
-# UI Automation Framework for DemoQA
+# UI Automation Framework - Playwright
 
-## Overview
-This framework is designed to automate the testing of the DemoQA application. It is built using Java, Selenium WebDriver, and TestNG.
+This project has been converted from Selenium WebDriver to Microsoft Playwright for UI automation testing of the DemoQA website.
+
+## Framework Conversion
+
+**Original Framework:**
+- Java + Selenium WebDriver
+- TestNG for test execution
+- Page Object Model (POM) pattern
+- Maven for dependency management
+
+**Converted Framework:**
+- Java + Microsoft Playwright
+- TestNG for test execution (maintained)
+- Page Object Model pattern (maintained)
+- Maven for dependency management
+
+## Key Changes Made
+
+### Dependencies
+- Removed `selenium-java` and `webdrivermanager` dependencies
+- Added `com.microsoft.playwright:playwright` dependency
+- Excluded `lombok` to avoid Java module conflicts
+
+### Framework Components
+- **PlaywrightFactory** (was WebDriverFactory): Creates Browser instances
+- **BaseTest**: Uses Playwright Browser/Page instead of WebDriver
+- **Page Objects**: Converted from @FindBy annotations to Playwright locators
+
+### API Changes
+- `driver.findElement()` → `page.locator()`
+- `element.sendKeys()` → `locator.fill()`
+- `element.click()` → `locator.click()`
+- `element.isDisplayed()` → `locator.isVisible()`
+- `element.getText()` → `locator.textContent()`
+- `Actions.doubleClick()` → `locator.dblclick()`
+- `Alert` handling → `page.onDialog()` handlers
 
 ## Project Structure
 ```
 ui_automation_demoqa/
 ├── src/main/java/
 │   ├── base/
-│   │   └── BaseTest.java
+│   │   └── BaseTest.java (updated for Playwright)
 │   ├── config/
 │   │   └── ConfigReader.java
 │   ├── pages/
-│   │   ├── HomePage.java
-│   │   ├── TextBoxPage.java
-│   │   ├── AlertsPage.java
-│   │   ├── ButtonsPage.java
-│   │   ├── CheckBoxPage.java
-│   │   ├── RadioButtonPage.java
-│   │   ├── WebTablePage.java
-│   │   ├── DynamicPropertiesPage.java
-│   │   └── (other pages as applicable)
+│   │   ├── HomePage.java (converted to Playwright)
+│   │   ├── TextBoxPage.java (converted to Playwright)
+│   │   ├── AlertsPage.java (converted to Playwright)
+│   │   ├── ButtonsPage.java (converted to Playwright)
+│   │   ├── CheckBoxPage.java (converted to Playwright)
+│   │   ├── RadioButtonPage.java (converted to Playwright)
+│   │   ├── WebTablePage.java (converted to Playwright)
+│   │   └── DynamicPropertiesPage.java (converted to Playwright)
+│   ├── utils/
+│   │   └── PlaywrightFactory.java (was WebDriverFactory)
 │   └── models/
 │       └── TestDataModel.java
 ├── src/test/java/
 │   ├── utils/
-│   │   ├── DataProviderUtil.java
-│   │   └── WebDriverFactory.java
+│   │   └── DataProviderUtil.java
 │   ├── tests/
-│   │   └── DemoQATests.java
-├── test-output/
+│   │   └── DemoQATests.java (updated for Playwright)
 ├── config.properties
-├── pom.xml
+├── pom.xml (updated dependencies)
+├── testng.xml
 └── README.md
 ```
 
-## Configuration
-- **config.properties**: Contains configuration settings like browser type and base URL.
-
 ## Setup
-1. Ensure you have JDK and Maven installed.
+1. Ensure you have JDK 17+ and Maven installed.
 2. Clone the repository.
 3. Navigate to the project directory.
-4. Run `mvn clean install` to set up the project dependencies.
+4. Run `mvn clean compile` to build the project.
+5. Install Playwright browsers: `mvn exec:java -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install"`
 
 ## Running Tests
 1. Navigate to the project directory.
 2. Run `mvn test` to execute the test suite.
 
-## Framework Components
-- **BaseTest.java**: Sets up and tears down WebDriver instances for tests.
-- **ConfigReader.java**: Reads configuration properties from the `config.properties` file.
-- **Page Classes**: Represent various pages of the DemoQA application.
-- **DataProviderUtil.java**: Provides test data using TestNG's `@DataProvider` annotation.
-- **DemoQATests.java**: Contains TestNG test methods for various scenarios.
+### Run with specific browser:
+```bash
+mvn test -Dbrowser=chromium
+mvn test -Dbrowser=firefox
+mvn test -Dbrowser=webkit
+```
 
-## Logging
-- **Log4j**: Used for internal logging during tests.
+## Test Coverage
+- Text Box form filling and validation
+- Button interactions (double-click)
+- Checkbox selection and validation
+- Radio button selection
+- Alert/Dialog handling
+- Web table data entry
+- Dynamic properties testing
 
-## Reporting
-- **Extent Reports**: Generates visually rich test execution reports.
+## Browser Support
+- Chromium (default)
+- Firefox
+- WebKit
 
-## Cross-Browser Testing
-- **WebDriverManager**: Manages driver binaries for different browsers.
+## Configuration
+- Browser type: Set in `config.properties` or via system property `-Dbrowser=<type>`
+- Base URL: https://demoqa.com/
+- Default timeout: 10 seconds
 
-## Notes
-- Ensure modular code to allow the addition of more UI test cases seamlessly.
+## Framework Benefits with Playwright
+- **Faster execution**: Playwright is generally faster than Selenium
+- **Better reliability**: Auto-wait and retry mechanisms
+- **Cross-browser support**: Chromium, Firefox, and WebKit
+- **Modern web standards**: Better support for modern web applications
+- **Network interception**: Built-in network stubbing and mocking
+- **Screenshots and videos**: Built-in visual testing capabilities

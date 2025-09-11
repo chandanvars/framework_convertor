@@ -1,0 +1,21 @@
+# Build artifacts
+target/
+*.class
+
+# IDE files
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Playwright browsers
+.cache/
+node_modules/
